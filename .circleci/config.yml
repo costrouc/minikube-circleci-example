@@ -5,4 +5,4 @@ jobs:
       enabled: true
     steps:
     - checkout
-    - run: ./.circleci/test.sh
+    - run: ./test.sh
