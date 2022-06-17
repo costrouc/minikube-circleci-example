@@ -42,7 +42,7 @@ install_helm_release() {
     chmod +x "${HELM}"
 }
 
-deploy() {
+deploy_resources() {
     # create kustomize resources
     "${KUBECTL}" apply -k resources
 
@@ -71,7 +71,7 @@ main() {
     "${MINIKUBE}" start --force --wait=all
 
     # deploy resources
-    deploy
+    deploy_resources
 
     # TODO: invoke your tests here
     # teardown will happen automatically on exit
