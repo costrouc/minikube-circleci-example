@@ -5,4 +5,5 @@ jobs:
       enabled: true
     steps:
     - checkout
+    - run: pwd
     - run: ./test.sh
