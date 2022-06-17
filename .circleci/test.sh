@@ -42,15 +42,7 @@ install_helm_release() {
     chmod +x "${HELM}"
 }
 
-main() {
-    # get binaries
-    install_minikube_release
-    install_kubectl_release
-    install_helm_release
-
-    # create a cluster
-    "${MINIKUBE}" start --force --wait=all
-
+deploy() {
     # create kustomize resources
     "${KUBECTL}" apply -k resources
 
@@ -67,6 +59,20 @@ main() {
     "${KUBECTL}" wait pods -n default -l app=postgres --for condition=Ready --timeout=90s
 
     "${KUBECTL}" get pods -A
+}
+
+main() {
+    # get binaries
+    install_minikube_release
+    install_kubectl_release
+    install_helm_release
+
+    # create a cluster
+    "${MINIKUBE}" start --force --wait=all
+
+    # deploy resources
+    deploy
+
     # TODO: invoke your tests here
     # teardown will happen automatically on exit
 }
