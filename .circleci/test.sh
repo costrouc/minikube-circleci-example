@@ -28,7 +28,7 @@ install_minikube_release() {
 
 install_helm_release() {
     HELM_BINARY_URL="https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz"
-    wget -O "${HELM}" "${MINIKUBE_BINARY_URL}"
+    wget -O "${HELM}" "${HELM_BINARY_URL}"
     chmod +x "${HELM}"
 }
 
