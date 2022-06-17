@@ -30,9 +30,14 @@ main() {
     # get minikube
     install_minikube_release
     # create a cluster
-    "${MINIKUBE}" start --force
-    "${MINIKUBE}" kubectl -- apply -k resources --wait
-    sleep 5
+    "${MINIKUBE}" start --force --wait=all
+
+    # create resources
+    "${MINIKUBE}" kubectl -- apply -k resources
+
+    # wait to resources to start running
+    "${MINIKUBE}" kubectl -- wait pods -n default -l app=postgres --for condition=Ready --timeout=90s
+
     "${MINIKUBE}" kubectl -- get pods -A
     # TODO: invoke your tests here
     # teardown will happen automatically on exit
